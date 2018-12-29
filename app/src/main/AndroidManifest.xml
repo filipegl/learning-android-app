@@ -17,9 +17,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity2"
-            android:label="Tela 2"
+            android:name=".AndroidInfo"
+            android:label="About Android"
             android:parentActivityName=".MainActivity">
+
+        </activity>
+        <activity
+            android:name=".LinuxInfo"
+            android:label="About Linux"
+            android:parentActivityName=".MainActivity">
+
         </activity>
     </application>
 
