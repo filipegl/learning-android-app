@@ -16,8 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity2"
-            android:label="Tela 2"></activity>
+        <activity
+            android:name=".MainActivity2"
+            android:label="Tela 2"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>
