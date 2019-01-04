@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity{
 
         longClickBugdroid();
         longClickTux();
-
-
     }
 
     private void longClickBugdroid() {
@@ -123,27 +121,6 @@ public class MainActivity extends AppCompatActivity{
         switch (item.getItemId()){
             case R.id.close_item:
                 dialog_close();
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-//                // 2. Chain together various setter methods to set the dialog characteristics
-//                builder.setMessage("Sair")
-//                        .setTitle("Deseja realmente sair?");
-//                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        finish();
-//                    }
-//                });
-//                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        Toast.makeText(getApplicationContext(), "cancelado", Toast.LENGTH_SHORT);
-//                    }
-//                });
-//
-//                // 3. Get the AlertDialog from create()
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-
-
-
                 break;
             case R.id.item1:
                 Toast.makeText(this, "clicked on item1", Toast.LENGTH_LONG).show();
