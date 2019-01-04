@@ -1,5 +1,7 @@
 package com.example.android.helloworld;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity{
     ImageView androidLayout, tuxLayout;
     Switch sw;
-    String[] items = new String[]{"", "Good morning", "Good afternoon", "God night"};
+    String[] items = new String[]{"-", "Good morning", "Good afternoon", "God night"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +32,19 @@ public class MainActivity extends AppCompatActivity{
 
         switchSettings();
 
-        longClickAndroid();
+        longClickBugdroid();
         longClickTux();
+
 
     }
 
-    private void longClickAndroid() {
+    private void longClickBugdroid() {
         androidLayout = findViewById(R.id.imageAndroid);
         androidLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                //TODO Open a modal
-                Toast.makeText(getApplicationContext(), "On Long Click ANDROID", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getApplicationContext(), "Toque no Bugdroid para mais informações", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -52,8 +55,7 @@ public class MainActivity extends AppCompatActivity{
         tuxLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                //TODO Open a modal
-                Toast.makeText(getApplicationContext(), "On Long Click TUX", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Toque no Tux para mais informações", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -97,11 +99,51 @@ public class MainActivity extends AppCompatActivity{
         return true;
     }
 
+    private void dialog_close() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Sair")
+                .setMessage("Deseja realmente sair?");
+
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+            }
+        });
+
+        builder.create().show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.close_item:
-                finish();
+                dialog_close();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+//                // 2. Chain together various setter methods to set the dialog characteristics
+//                builder.setMessage("Sair")
+//                        .setTitle("Deseja realmente sair?");
+//                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        finish();
+//                    }
+//                });
+//                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        Toast.makeText(getApplicationContext(), "cancelado", Toast.LENGTH_SHORT);
+//                    }
+//                });
+//
+//                // 3. Get the AlertDialog from create()
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
+
+
+
                 break;
             case R.id.item1:
                 Toast.makeText(this, "clicked on item1", Toast.LENGTH_LONG).show();
