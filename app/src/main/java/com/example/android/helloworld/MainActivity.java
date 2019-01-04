@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     ImageView androidLayout, tuxLayout;
     Switch sw;
     String[] items = new String[]{"", "Good morning", "Good afternoon", "God night"};
@@ -29,6 +29,34 @@ public class MainActivity extends AppCompatActivity {
         dropdown.setAdapter(adapter);
 
         switchSettings();
+
+        longClickAndroid();
+        longClickTux();
+
+    }
+
+    private void longClickAndroid() {
+        androidLayout = findViewById(R.id.imageAndroid);
+        androidLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //TODO Open a modal
+                Toast.makeText(getApplicationContext(), "On Long Click ANDROID", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
+    }
+    private void longClickTux() {
+        tuxLayout = findViewById(R.id.imageTux);
+        tuxLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //TODO Open a modal
+                Toast.makeText(getApplicationContext(), "On Long Click TUX", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     private void switchSettings(){
