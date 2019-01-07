@@ -19,15 +19,15 @@
         <activity
             android:name=".AndroidInfo"
             android:label="About Android"
-            android:parentActivityName=".MainActivity">
-
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".LinuxInfo"
             android:label="About Linux"
-            android:parentActivityName=".MainActivity">
-
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".DragDrop"
+            android:label="Drag and Drop"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

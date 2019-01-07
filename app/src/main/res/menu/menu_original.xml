@@ -12,9 +12,9 @@
 
 
     <item
-        android:id="@+id/item1"
+        android:id="@+id/drag_drop"
         android:orderInCategory="1"
-        android:title="item1"
+        android:title="Arrasta e Solta"
         app:showAsAction="never" />
 
     <item

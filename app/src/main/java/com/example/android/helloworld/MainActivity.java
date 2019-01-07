@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity{
         longClickTux();
     }
 
+    
     private void longClickBugdroid() {
         androidLayout = findViewById(R.id.imageAndroid);
         androidLayout.setOnLongClickListener(new View.OnLongClickListener() {
@@ -122,8 +123,9 @@ public class MainActivity extends AppCompatActivity{
             case R.id.close_item:
                 dialog_close();
                 break;
-            case R.id.item1:
-                Toast.makeText(this, "clicked on item1", Toast.LENGTH_LONG).show();
+            case R.id.drag_drop:
+                Intent intent = new Intent(this, DragDrop.class);
+                startActivity(intent);
                 break;
             case R.id.item2:
                 Toast.makeText(this, "clicked on item2", Toast.LENGTH_LONG).show();
