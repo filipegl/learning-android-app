@@ -3,40 +3,30 @@ package com.example.android.helloworld;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     ImageView androidLayout, tuxLayout;
     Switch sw;
-    String[] items = new String[]{"-", "Good morning", "Good afternoon", "God night"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Spinner dropdown = findViewById(R.id.planets_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown.setAdapter(adapter);
-
         switchSettings();
-
         longClickBugdroid();
         longClickTux();
     }
 
-    
     private void longClickBugdroid() {
         androidLayout = findViewById(R.id.imageAndroid);
         androidLayout.setOnLongClickListener(new View.OnLongClickListener() {
@@ -79,7 +69,6 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-
     public void openLinux(View view){
         Intent intent = new Intent(this, LinuxInfo.class);
         startActivity(intent);
@@ -89,7 +78,6 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(this, AndroidInfo.class);
         startActivity(intent);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
