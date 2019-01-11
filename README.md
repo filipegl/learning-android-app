@@ -1,2 +1,3 @@
 # learning-android-app
-This android application is being developed for learning purposes.
+Each directory has a different project.
+These android applications are being developed for learning purposes.
