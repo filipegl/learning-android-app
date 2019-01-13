@@ -16,27 +16,35 @@
 
 package com.example.android.android_me.ui;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.android.android_me.R;
 import com.example.android.android_me.data.AndroidImageAssets;
 
 // This activity will display a custom Android image composed of three body parts: head, body, and legs
-public class AndroidMeActivity extends AppCompatActivity {
+public class AndroidMeActivity extends AppCompatActivity implements BodyPartFragment.OnClickBodyPart {
 
+    int headIndex;
+    int bodyIndex;
+    int legIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_me);
 
-
         if (savedInstanceState == null) {
-            int headIndex = getIntent().getIntExtra("headIndex", 0);
-            int bodyIndex = getIntent().getIntExtra("bodyIndex", 0);
-            int legIndex = getIntent().getIntExtra("legIndex", 0);
+            headIndex = getIntent().getIntExtra("headIndex", 0);
+            bodyIndex = getIntent().getIntExtra("bodyIndex", 0);
+            legIndex = getIntent().getIntExtra("legIndex", 0);
 
             // Create a new head, body and leg instance
             BodyPartFragment headFragment = new BodyPartFragment();
@@ -64,6 +72,48 @@ public class AndroidMeActivity extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .add(R.id.leg_container, legFragment)
                     .commit();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    //Nao sei se isso eh uma ma pratica
+    @Override
+    public void onBackPressed() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("headIndex", headIndex);
+        bundle.putInt("bodyIndex", bodyIndex);
+        bundle.putInt("legIndex", legIndex);
+
+        Intent intent = new Intent();
+        intent.putExtras(bundle);
+        setResult(Activity.RESULT_OK, intent);
+
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onClickBodyPart(String bodyPart, int index) {
+        switch(bodyPart){
+            case "headIndex":
+                headIndex = index;
+                break;
+            case "bodyIndex":
+                bodyIndex = index;
+                break;
+            case "legIndex":
+                legIndex = index;
+                break;
         }
     }
 }

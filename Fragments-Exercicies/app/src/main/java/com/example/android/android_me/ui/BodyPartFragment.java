@@ -1,5 +1,7 @@
 package com.example.android.android_me.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -7,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.android.android_me.R;
+import com.example.android.android_me.data.AndroidImageAssets;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +32,22 @@ public class BodyPartFragment extends Fragment {
 
     private List<Integer> mImagesId;
     private int mListIndex;
+    OnClickBodyPart mCallBack;
 
     public BodyPartFragment() {
+    }
+
+    public interface OnClickBodyPart {
+        void onClickBodyPart(String part, int index);
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mCallBack = (OnClickBodyPart) context;
+        } catch (ClassCastException e){
+            throw new ClassCastException(context.toString() + "must implement OnImageClickListener");
+        }
     }
 
     @Override
@@ -53,6 +71,16 @@ public class BodyPartFragment extends Fragment {
                         mListIndex=0;
                     }
                     imageView.setImageResource(mImagesId.get(mListIndex));
+
+                    String bodyPart;
+                    if (mImagesId.equals(AndroidImageAssets.getHeads())) {
+                        bodyPart = "headIndex";
+                    } else if (mImagesId.equals(AndroidImageAssets.getBodies())) {
+                        bodyPart = "bodyIndex";
+                    } else{
+                        bodyPart = "legIndex";
+                    }
+                    mCallBack.onClickBodyPart(bodyPart, mListIndex);
                 }
             });
 

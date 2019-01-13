@@ -1,8 +1,10 @@
 package com.example.android.android_me.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,9 +12,9 @@ import com.example.android.android_me.R;
 
 public class MainActivity extends AppCompatActivity implements MasterListFragment.OnImageClickListener {
 
-    private int headIndex = 0;
-    private int bodyIndex = 0;
-    private int legIndex = 0;
+    private int headIndex;
+    private int bodyIndex;
+    private int legIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements MasterListFragmen
         nextActivity();
     }
 
-
     private void nextActivity(){
         Bundle bundle = new Bundle();
         bundle.putInt("headIndex", headIndex);
@@ -41,9 +42,26 @@ public class MainActivity extends AppCompatActivity implements MasterListFragmen
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1){
+            if (resultCode == Activity.RESULT_OK){
+                headIndex = data.getIntExtra("headIndex", 0);
+                bodyIndex = data.getIntExtra("bodyIndex", 0);
+                legIndex = data.getIntExtra("legIndex", 0);
+                nextActivity();
+                Log.v("SHIT", "headIndex: " + headIndex);
+                Log.v("SHIT", "bodyIndex: " + bodyIndex);
+                Log.v("SHIT", "legIndex: " + legIndex);
+            } else {
+                Log.v("debug", "Esse estado provavelmente eh impossivel.");
+            }
+        }
     }
 
     @Override
