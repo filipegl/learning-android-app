@@ -32,20 +32,24 @@ public class AndroidMeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_me);
 
-        // Create a new head, body and leg instance
-        if (savedInstanceState == null) {
 
+        if (savedInstanceState == null) {
+            int headIndex = getIntent().getIntExtra("headIndex", 0);
+            int bodyIndex = getIntent().getIntExtra("bodyIndex", 0);
+            int legIndex = getIntent().getIntExtra("legIndex", 0);
+
+            // Create a new head, body and leg instance
             BodyPartFragment headFragment = new BodyPartFragment();
             headFragment.setImagesId(AndroidImageAssets.getHeads());
-            headFragment.setListIndex(0);
+            headFragment.setListIndex(headIndex);
 
             BodyPartFragment bodyFragment = new BodyPartFragment();
             bodyFragment.setImagesId(AndroidImageAssets.getBodies());
-            bodyFragment.setListIndex(0);
+            bodyFragment.setListIndex(bodyIndex);
 
             BodyPartFragment legFragment = new BodyPartFragment();
             legFragment.setImagesId(AndroidImageAssets.getLegs());
-            legFragment.setListIndex(0);
+            legFragment.setListIndex(legIndex);
 
 
             // Add the fragment to its container using a FragmentManager and a Transaction
@@ -60,8 +64,6 @@ public class AndroidMeActivity extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .add(R.id.leg_container, legFragment)
                     .commit();
-
-
         }
     }
 }
