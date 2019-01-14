@@ -22,18 +22,18 @@ public class MainActivity extends AppCompatActivity implements MasterListFragmen
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState != null) {
-            headIndex = savedInstanceState.getInt("headIndex", 0);
-            bodyIndex = savedInstanceState.getInt("bodyIndex", 0);
-            legIndex = savedInstanceState.getInt("legIndex", 0);
+            headIndex = savedInstanceState.getInt(AndroidMeActivity.HEAD_INDEX, 0);
+            bodyIndex = savedInstanceState.getInt(AndroidMeActivity.BODY_INDEX, 0);
+            legIndex = savedInstanceState.getInt(AndroidMeActivity.LEG_INDEX, 0);
         }
         nextActivity();
     }
 
     private void nextActivity(){
         Bundle bundle = new Bundle();
-        bundle.putInt("headIndex", headIndex);
-        bundle.putInt("bodyIndex", bodyIndex);
-        bundle.putInt("legIndex", legIndex);
+        bundle.putInt(AndroidMeActivity.HEAD_INDEX, headIndex);
+        bundle.putInt(AndroidMeActivity.BODY_INDEX, bodyIndex);
+        bundle.putInt(AndroidMeActivity.LEG_INDEX, legIndex);
 
         final Intent intent = new Intent(this, AndroidMeActivity.class);
         intent.putExtras(bundle);
@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity implements MasterListFragmen
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1){
             if (resultCode == Activity.RESULT_OK){
-                headIndex = data.getIntExtra("headIndex", 0);
-                bodyIndex = data.getIntExtra("bodyIndex", 0);
-                legIndex = data.getIntExtra("legIndex", 0);
+                headIndex = data.getIntExtra(AndroidMeActivity.HEAD_INDEX, 0);
+                bodyIndex = data.getIntExtra(AndroidMeActivity.BODY_INDEX, 0);
+                legIndex = data.getIntExtra(AndroidMeActivity.LEG_INDEX, 0);
                 nextActivity();
                 Log.v("SHIT", "headIndex: " + headIndex);
                 Log.v("SHIT", "bodyIndex: " + bodyIndex);
@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity implements MasterListFragmen
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt("headIndex", headIndex);
-        outState.putInt("bodyIndex", bodyIndex);
-        outState.putInt("legIndex", legIndex);
+        outState.putInt(AndroidMeActivity.HEAD_INDEX, headIndex);
+        outState.putInt(AndroidMeActivity.BODY_INDEX, bodyIndex);
+        outState.putInt(AndroidMeActivity.LEG_INDEX, legIndex);
     }
 
     @Override

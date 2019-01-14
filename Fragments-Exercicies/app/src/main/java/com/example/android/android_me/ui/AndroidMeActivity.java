@@ -29,9 +29,12 @@ import com.example.android.android_me.data.AndroidImageAssets;
 // This activity will display a custom Android image composed of three body parts: head, body, and legs
 public class AndroidMeActivity extends AppCompatActivity implements BodyPartFragment.OnClickBodyPart {
 
-    int headIndex;
-    int bodyIndex;
-    int legIndex;
+    private int headIndex;
+    private int bodyIndex;
+    private int legIndex;
+    public static final String HEAD_INDEX = "headIndex";
+    public static final String BODY_INDEX = "bodyIndex";
+    public static final String LEG_INDEX = "legIndex";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +44,17 @@ public class AndroidMeActivity extends AppCompatActivity implements BodyPartFrag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_me);
 
-        if (savedInstanceState == null) {
-            headIndex = getIntent().getIntExtra("headIndex", 0);
-            bodyIndex = getIntent().getIntExtra("bodyIndex", 0);
-            legIndex = getIntent().getIntExtra("legIndex", 0);
+        if (savedInstanceState != null) {
+            Bundle b = new Bundle();
+            b.putInt(HEAD_INDEX, savedInstanceState.getInt(HEAD_INDEX));
+            b.putInt(BODY_INDEX, savedInstanceState.getInt(BODY_INDEX));
+            b.putInt(LEG_INDEX, savedInstanceState.getInt(LEG_INDEX));
+            getIntent().putExtras(b);
+        }
+
+            headIndex = getIntent().getIntExtra(HEAD_INDEX, 0);
+            bodyIndex = getIntent().getIntExtra(BODY_INDEX, 0);
+            legIndex = getIntent().getIntExtra(LEG_INDEX, 0);
 
             // Create a new head, body and leg instance
             BodyPartFragment headFragment = new BodyPartFragment();
@@ -72,7 +82,6 @@ public class AndroidMeActivity extends AppCompatActivity implements BodyPartFrag
             fragmentManager.beginTransaction()
                     .add(R.id.leg_container, legFragment)
                     .commit();
-        }
     }
 
     @Override
@@ -91,9 +100,9 @@ public class AndroidMeActivity extends AppCompatActivity implements BodyPartFrag
     @Override
     public void onBackPressed() {
         Bundle bundle = new Bundle();
-        bundle.putInt("headIndex", headIndex);
-        bundle.putInt("bodyIndex", bodyIndex);
-        bundle.putInt("legIndex", legIndex);
+        bundle.putInt(HEAD_INDEX, headIndex);
+        bundle.putInt(BODY_INDEX, bodyIndex);
+        bundle.putInt(LEG_INDEX, legIndex);
 
         Intent intent = new Intent();
         intent.putExtras(bundle);
@@ -105,15 +114,22 @@ public class AndroidMeActivity extends AppCompatActivity implements BodyPartFrag
     @Override
     public void onClickBodyPart(String bodyPart, int index) {
         switch(bodyPart){
-            case "headIndex":
+            case HEAD_INDEX:
                 headIndex = index;
                 break;
-            case "bodyIndex":
+            case BODY_INDEX:
                 bodyIndex = index;
                 break;
-            case "legIndex":
+            case LEG_INDEX:
                 legIndex = index;
                 break;
         }
+    }
+    
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(HEAD_INDEX, headIndex);
+        outState.putInt(BODY_INDEX, bodyIndex);
+        outState.putInt(LEG_INDEX, legIndex);
     }
 }

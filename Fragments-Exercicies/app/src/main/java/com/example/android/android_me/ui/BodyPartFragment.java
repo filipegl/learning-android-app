@@ -1,7 +1,6 @@
 package com.example.android.android_me.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.android.android_me.R;
 import com.example.android.android_me.data.AndroidImageAssets;
@@ -32,10 +30,10 @@ public class BodyPartFragment extends Fragment {
 
     private List<Integer> mImagesId;
     private int mListIndex;
+    private String mBodyPart;
     OnClickBodyPart mCallBack;
 
-    public BodyPartFragment() {
-    }
+    public BodyPartFragment(){}
 
     public interface OnClickBodyPart {
         void onClickBodyPart(String part, int index);
@@ -61,7 +59,7 @@ public class BodyPartFragment extends Fragment {
 
         if (mImagesId != null){
             imageView.setImageResource(mImagesId.get(mListIndex));
-
+            mBodyPart = getBodyPart();
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -72,23 +70,27 @@ public class BodyPartFragment extends Fragment {
                     }
                     imageView.setImageResource(mImagesId.get(mListIndex));
 
-                    String bodyPart;
-                    if (mImagesId.equals(AndroidImageAssets.getHeads())) {
-                        bodyPart = "headIndex";
-                    } else if (mImagesId.equals(AndroidImageAssets.getBodies())) {
-                        bodyPart = "bodyIndex";
-                    } else{
-                        bodyPart = "legIndex";
-                    }
-                    mCallBack.onClickBodyPart(bodyPart, mListIndex);
+                    mCallBack.onClickBodyPart(mBodyPart, mListIndex);
                 }
             });
-
         } else {
             Log.v(TAG, "Este fragment contém uma lista nula");
         }
 
         return rootView;
+    }
+
+    private String getBodyPart(){
+        String part;
+        if (mImagesId.equals(AndroidImageAssets.getHeads())) {
+            part = AndroidMeActivity.HEAD_INDEX;
+        } else if (mImagesId.equals(AndroidImageAssets.getBodies())) {
+            part = AndroidMeActivity.BODY_INDEX;
+        } else {
+            part = AndroidMeActivity.LEG_INDEX;
+        }
+
+        return part;
     }
 
     @Override
